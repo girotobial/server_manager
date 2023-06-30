@@ -13,11 +13,13 @@ class MonitorFolder(FileSystemEventHandler):
         filepath = Path(event.src_path)
 
         filename = filepath.stem
-        txt = filename.split("]", 1)
-        if len(txt) > 1:
-           txt = txt[1].split("-", 1)
-           if len(txt) > 0:
-               txt = txt[0].strip()
+        tokens: list[str] | str = filename.split("]", 1)
+        if len(tokens) > 1:
+           tokens = tokens[1].split("-", 1)
+        
+        # split always returns the original string if it can't find the delimiter
+        txt: str = tokens[0].strip()
+
         absPath = Path(self.first)
         found_folder = list(absPath.glob(txt))
 
