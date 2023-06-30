@@ -13,7 +13,7 @@ class MonitorFolder(FileSystemEventHandler):
         filepath = Path(event.src_path)
 
         filename = filepath.stem
-        tokens: list[str] = filename.split("]", 1)
+        tokens: list[str] | str = filename.split("]", 1)
         if len(tokens) > 1:
            tokens = tokens[1].split("-", 1)
         
